@@ -1,12 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { TopRatedGithubReposQueryDto } from './dto/top-rated-query.dto';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/top-rated-github-repos/')
+  getTopRatedGithubRepos(@Query() query: TopRatedGithubReposQueryDto): void {
+    const { date, language, limit } = query;
+    return this.appService.getTopRatedGithubRepos(date, language, limit);
   }
 }
