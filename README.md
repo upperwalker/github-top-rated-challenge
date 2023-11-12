@@ -1,6 +1,17 @@
 ## Description
-
 GitHub top-rated repositories challenge
+
+## Review notes
+
+The project leverages Redis cache to avoid repeatedly read from a CSV source. However, even without a connected Redis instance, the application remains functional, ensuring a robust user experience by utilizing Node.js streams for data processing
+
+The project includes API documentation using OpenAPI. To explore the API documentation, navigate to `/documentation` after running the application. 
+
+
+
+
+
+
 ## Installation
 
 ```bash
@@ -15,7 +26,7 @@ $ cp .env.example .env
 nvm use
 ```
 ## Running the app
-
+Run locally
 ```bash
 # development
 $ pnpm run start
@@ -27,29 +38,15 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
+Or use docker
+```bash
+# build Docker image
+docker-compose up --build -d
+```
+
 ## Test
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
+# e2e test
 $ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

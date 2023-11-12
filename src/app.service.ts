@@ -1,24 +1,23 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { GithubTopReposFetcher } from './data-sources/github-top-repos-fetcher';
+import { Injectable } from '@nestjs/common';
+import { CacheManagerWrapper } from './core/cache/cache-manager-wrapper';
 import {
-  GithubTopReposResult,
+  GithubTopRepoResult,
   GithubTopReposOutputConverter,
-} from './converters/github-top-repos-output.converter';
-import { Cache } from 'cache-manager';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
+} from './github-top-repos/converters/github-top-repos-output.converter';
+import { GithubTopReposFetcher } from './github-top-repos/data-sources/github-top-repos-fetcher';
 
 @Injectable()
 export class AppService {
   constructor(
     private readonly fetcher: GithubTopReposFetcher,
     private readonly outputConverter: GithubTopReposOutputConverter,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private readonly cacheManager: CacheManagerWrapper,
   ) {}
   async getTopRatedGithubRepos(
     date: string,
     language: string,
     limit: number,
-  ): Promise<GithubTopReposResult> {
+  ): Promise<GithubTopRepoResult[]> {
     const cacheKey = date + '-' + language;
     let cached: string[] = await this.cacheManager.get(cacheKey);
     if (!cached) {

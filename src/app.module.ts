@@ -1,24 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GithubTopReposFetcher } from './data-sources/github-top-repos-fetcher';
-import { GithubTopReposOutputConverter } from './converters/github-top-repos-output.converter';
-import type { RedisClientOptions } from 'redis';
-import * as redisStore from 'cache-manager-redis-store';
-import { CacheModule } from '@nestjs/cache-manager';
-import { ConfigModule } from '@nestjs/config';
+import { CacheModule } from './core/cache/cache.module';
+import { GithubTopReposOutputConverter } from './github-top-repos/converters/github-top-repos-output.converter';
+import { GithubTopReposFetcher } from './github-top-repos/data-sources/github-top-repos-fetcher';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    CacheModule.register<RedisClientOptions>({
-      isGlobal: true,
-      no_ready_check: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-    }),
-  ],
+  imports: [CacheModule],
   controllers: [AppController],
   providers: [AppService, GithubTopReposFetcher, GithubTopReposOutputConverter],
 })
