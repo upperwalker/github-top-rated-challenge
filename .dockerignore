@@ -1,0 +1,12 @@
+*.md
+.git
+.github
+.husky
+coverage
+dist
+docker
+docker*.yml
+node_modules
+
+
+
