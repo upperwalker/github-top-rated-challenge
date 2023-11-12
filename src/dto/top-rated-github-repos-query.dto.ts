@@ -1,11 +1,12 @@
 import {
   IsDateString,
+  IsEnum,
   IsInt,
   IsNotEmpty,
-  IsString,
   Max,
   Min,
 } from 'class-validator';
+import { Languages } from '../languages.enum';
 
 export class TopRatedGithubReposQueryDto {
   @IsNotEmpty()
@@ -13,8 +14,8 @@ export class TopRatedGithubReposQueryDto {
   date: string;
 
   @IsNotEmpty()
-  @IsString()
-  language: string;
+  @IsEnum(Languages)
+  language: Languages;
 
   @IsNotEmpty()
   @IsInt()
