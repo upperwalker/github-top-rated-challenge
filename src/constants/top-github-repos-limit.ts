@@ -1,0 +1,1 @@
+export const TOP_GITHUB_REPOS_LIMIT = 100;

@@ -6,9 +6,10 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { Languages } from '../languages.enum';
+import { Languages } from '../constants/languages.enum';
+import { TOP_GITHUB_REPOS_LIMIT } from '../constants/top-github-repos-limit';
 
-export class TopRatedGithubReposQueryDto {
+export class GithubTopReposQueryDto {
   @IsNotEmpty()
   @IsDateString()
   date: string;
@@ -20,6 +21,6 @@ export class TopRatedGithubReposQueryDto {
   @IsNotEmpty()
   @IsInt()
   @Min(1)
-  @Max(100)
+  @Max(TOP_GITHUB_REPOS_LIMIT)
   limit: number;
 }
